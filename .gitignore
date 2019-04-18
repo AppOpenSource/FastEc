@@ -1,5 +1,6 @@
 *.iml
 .gradle
+.idea
 /local.properties
 /.idea/caches/build_file_checksums.ser
 /.idea/libraries
@@ -9,3 +10,7 @@
 /build
 /captures
 .externalNativeBuild
+/example/build/
+/latte_annotation/build/
+/latte_core/build/
+/latte_ec/build/
