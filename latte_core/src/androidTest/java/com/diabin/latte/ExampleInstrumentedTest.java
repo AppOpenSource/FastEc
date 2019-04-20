@@ -1,4 +1,4 @@
-package com.diabin.latte_core;
+package com.diabin.latte;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
