@@ -17,6 +17,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions { exclude 'META-INF/androidx.core_core.version' }
+    packagingOptions { exclude 'META-INF/proguard/androidx-annotations.pro' }
+    packagingOptions { exclude 'META-INF/androidx.versionedparcelable_versionedparcelable.version' }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
