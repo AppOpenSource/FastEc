@@ -6,5 +6,6 @@ public enum ConfigType {
     CONFIG_READY,
     ICON,
     HANDLER,
-    LOADER_DELAYED
+    LOADER_DELAYED,
+    INTERCEPTOR
 }

@@ -8,11 +8,14 @@ import com.joanzapata.iconify.Iconify;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import okhttp3.Interceptor;
+
 public class Configurator {
 
     private static final Handler HANDLER = new Handler();
     private static final HashMap<Object, Object> LATTE_CONFIGS = new HashMap();
     private static final ArrayList<IconFontDescriptor> ICONS = new ArrayList();
+    private static final ArrayList<Interceptor> INTERCEPTORS = new ArrayList<>();
 
     private Configurator() {
         LATTE_CONFIGS.put(ConfigType.CONFIG_READY.name(), false);
@@ -79,6 +82,18 @@ public class Configurator {
 
     public final Configurator withLoaderDelayed(long delayed) {
         LATTE_CONFIGS.put(ConfigType.LOADER_DELAYED.name(), delayed);
+        return this;
+    }
+
+    public final Configurator withInterceptor(Interceptor interceptor) {
+        INTERCEPTORS.add(interceptor);
+        LATTE_CONFIGS.put(ConfigType.INTERCEPTOR.name(), INTERCEPTORS);
+        return this;
+    }
+
+    public final Configurator withInterceptors(ArrayList<Interceptor> interceptors) {
+        INTERCEPTORS.addAll(interceptors);
+        LATTE_CONFIGS.put(ConfigType.INTERCEPTOR.name(), INTERCEPTORS);
         return this;
     }
 }
