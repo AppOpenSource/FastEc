@@ -7,11 +7,15 @@ import com.diabin.latte.net.callback.IFailure;
 import com.diabin.latte.net.callback.IRequest;
 import com.diabin.latte.net.callback.ISuccess;
 import com.diabin.latte.net.callback.RequestCallbacks;
+import com.diabin.latte.net.download.DownloadHandler;
 import com.diabin.latte.ui.LatteLoader;
 import com.diabin.latte.ui.LoaderStyle;
 
+import java.io.File;
 import java.util.WeakHashMap;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,6 +31,10 @@ public class RestClient {
     private final RequestBody BODY;
     private final LoaderStyle LOADER_STYLE;
     private final Context CONTEXT;
+    private final File FILE;
+    private final String DOWNLOAD_DIR;
+    private final String EXTENSION;
+    private final String NAME;
 
     public RestClient(WeakHashMap<String, Object> PARAMS,
                       String URL,
@@ -36,7 +44,11 @@ public class RestClient {
                       IError ERROR,
                       RequestBody BODY,
                       Context context,
-                      LoaderStyle loaderStyle) {
+                      LoaderStyle loaderStyle,
+                      File file,
+                      String downloadDir,
+                      String extension,
+                      String name) {
         this.PARAMS = PARAMS;
         this.URL = URL;
         this.REQUEST = REQUEST;
@@ -46,6 +58,10 @@ public class RestClient {
         this.BODY = BODY;
         this.CONTEXT = context;
         this.LOADER_STYLE = loaderStyle;
+        this.FILE = file;
+        this.DOWNLOAD_DIR = downloadDir;
+        this.EXTENSION = extension;
+        this.NAME = name;
     }
 
     public static RestClientBuilder builder() {
@@ -71,24 +87,24 @@ public class RestClient {
             case POST:
                 call = service.post(URL, PARAMS);
                 break;
-            /*case POST_RAW:
+            case POST_RAW:
                 call = service.postRaw(URL, BODY);
-                break;*/
+                break;
             case PUT:
                 call = service.put(URL, PARAMS);
                 break;
-            /*case PUT_RAW:
+            case PUT_RAW:
                 call = service.putRaw(URL, BODY);
-                break;*/
+                break;
             case DELETE:
                 call = service.delete(URL, PARAMS);
                 break;
             case UPLOAD:
-                /*final RequestBody requestBody =
+                final RequestBody requestBody =
                         RequestBody.create(MediaType.parse(MultipartBody.FORM.toString()), FILE);
                 final MultipartBody.Part body =
                         MultipartBody.Part.createFormData("file", FILE.getName(), requestBody);
-                call = service.upload(URL, body);*/
+                call = service.upload(URL, body);
                 break;
             default:
                 break;
@@ -143,11 +159,11 @@ public class RestClient {
         request(HttpMethod.UPLOAD);
     }
 
-    /*public final void download() {
+    public final void download() {
         new DownloadHandler(URL, PARAMS,REQUEST, DOWNLOAD_DIR, EXTENSION, NAME,
                 SUCCESS, FAILURE, ERROR)
                 .handleDownload();
-    }*/
+    }
 }
 
 

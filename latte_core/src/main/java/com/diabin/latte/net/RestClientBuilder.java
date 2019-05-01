@@ -8,6 +8,7 @@ import com.diabin.latte.net.callback.IRequest;
 import com.diabin.latte.net.callback.ISuccess;
 import com.diabin.latte.ui.LoaderStyle;
 
+import java.io.File;
 import java.util.WeakHashMap;
 
 import okhttp3.MediaType;
@@ -25,6 +26,12 @@ public class RestClientBuilder {
 
     private Context mContext = null;
     private LoaderStyle mLoaderStyle = null;
+
+    private File mFile = null;
+
+    private String mDownloadDir = null;
+    private String mExtension = null;
+    private String mName = null;
 
     RestClientBuilder() {
     }
@@ -83,10 +90,36 @@ public class RestClientBuilder {
         return this;
     }
 
+    public final RestClientBuilder file(File file) {
+        this.mFile = file;
+        return this;
+    }
+
+    public final RestClientBuilder file(String file) {
+        this.mFile = new File(file);
+        return this;
+    }
+
+    public final RestClientBuilder name(String name) {
+        this.mName = name;
+        return this;
+    }
+
+    public final RestClientBuilder dir(String dir) {
+        this.mDownloadDir = dir;
+        return this;
+    }
+
+    public final RestClientBuilder extension(String extension) {
+        this.mExtension = extension;
+        return this;
+    }
+
     public final RestClient build() {
         return new RestClient(PARAMS, mUrl,
                 mIRequest, mISuccess, mIFailure,
                 mIError, mBody, mContext,
-                mLoaderStyle);
+                mLoaderStyle, mFile, mDownloadDir,
+                mExtension, mName);
     }
 }
