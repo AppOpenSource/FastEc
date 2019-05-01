@@ -2,7 +2,7 @@ package com.diabin.latte.ec.icon;
 
 import com.joanzapata.iconify.Icon;
 
-public enum  EcIcons  implements Icon {
+public enum EcIcons implements Icon {
     icon_debug('\ue6da');
 
     private char charator;

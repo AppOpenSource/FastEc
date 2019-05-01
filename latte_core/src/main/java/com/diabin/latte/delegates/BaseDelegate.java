@@ -9,7 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public abstract class BaseDelegate extends Fragment {
+import me.yokeyword.fragmentation.ISupportFragment;
+
+public abstract class BaseDelegate extends Fragment implements ISupportFragment {
 
     //private Unbinder mUnbinder = null;
 
@@ -26,7 +28,16 @@ public abstract class BaseDelegate extends Fragment {
         }
         /*if (rootView != null) {
             mUnbinder = ButterKnife.bind(rootView);
+            onBindView(savedInstanceState, rootView);
         }*/
         return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        /*if (null != mUnbinder) {
+            mUnbinder.unbind();
+        }*/
     }
 }
