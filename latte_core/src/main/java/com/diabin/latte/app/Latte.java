@@ -1,23 +1,33 @@
 package com.diabin.latte.app;
 
 import android.content.Context;
-
-import java.util.HashMap;
+import android.os.Handler;
 
 public final class Latte {
 
     public static Configurator init(Context context) {
-        getConfigurations().put(ConfigType.APPLICATION_CONTEXT.name(), context.getApplicationContext());
+        getConfigurator().getLatteConfigs()
+                .put(ConfigType.APPLICATION_CONTEXT.name(), context.getApplicationContext());
+        return getConfigurator();
+    }
+
+    public static Configurator getConfigurator() {
         return Configurator.getInstance();
     }
 
-    public static HashMap<Object, Object> getConfigurations() {
-        return Configurator.getInstance().getLatteConfigs();
+    public static <T> T getConfiguration(Object key) {
+        return getConfigurator().getConfiguration(key);
     }
 
     public static final Context getAppContext() {
-        return (Context) getConfigurations().get(ConfigType.APPLICATION_CONTEXT.name());
+        return (Context) getConfiguration(ConfigType.APPLICATION_CONTEXT.name());
     }
+
+    public static Handler getHandler() {
+        return getConfiguration(ConfigType.HANDLER.name());
+    }
+
+
 
 
 }
