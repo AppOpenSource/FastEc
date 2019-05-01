@@ -1,5 +1,7 @@
 package com.diabin.latte.delegates;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +10,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+
+import com.diabin.latte.activity.ProxyActivity;
 
 import me.yokeyword.fragmentation.ExtraTransaction;
 import me.yokeyword.fragmentation.ISupportFragment;
@@ -19,9 +24,23 @@ public abstract class BaseDelegate extends Fragment implements ISupportFragment 
     private final SupportFragmentDelegate DELEGATE =
             new SupportFragmentDelegate(this);
 
+    protected FragmentActivity _mActivity;
     //private Unbinder mUnbinder = null;
 
     public abstract Object setLayout();
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        DELEGATE.onAttach((Activity) context);
+        _mActivity = DELEGATE.getActivity();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        DELEGATE.onCreate(savedInstanceState);
+    }
 
     @Nullable
     @Override
@@ -130,5 +149,9 @@ public abstract class BaseDelegate extends Fragment implements ISupportFragment 
     @Override
     public boolean onBackPressedSupport() {
         return DELEGATE.onBackPressedSupport();
+    }
+
+    public final ProxyActivity getProxyActivity() {
+        return (ProxyActivity) _mActivity;
     }
 }

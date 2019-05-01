@@ -3,7 +3,9 @@
 /example/build/
 /latte_annotation/build/
 /latte_ocmpiler/build/
+/latte_ocmpiler/build/libs/*.jar
 /latte_core/build/
 /latte_ec/build/
+/latte_ui/build/
 local.properties
 *.iml
