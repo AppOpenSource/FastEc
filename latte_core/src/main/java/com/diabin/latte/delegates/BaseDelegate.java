@@ -1,19 +1,17 @@
 package com.diabin.latte.delegates;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 public abstract class BaseDelegate extends Fragment {
 
-    private Unbinder mUnbinder = null;
+    //private Unbinder mUnbinder = null;
 
     public abstract Object setLayout();
 
@@ -26,9 +24,9 @@ public abstract class BaseDelegate extends Fragment {
         } else if (setLayout() instanceof View) {
             rootView = (View) setLayout();
         }
-        if (rootView != null) {
+        /*if (rootView != null) {
             mUnbinder = ButterKnife.bind(rootView);
-        }
+        }*/
         return rootView;
     }
 }
