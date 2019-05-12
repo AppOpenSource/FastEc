@@ -1,7 +1,6 @@
 package com.diabin.fastec.example;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -31,11 +30,11 @@ public class ExampleActivity extends ProxyActivity implements ISignListener {
 
     @Override
     public void onSignInSuccess() {
-        Toast.makeText(ExampleActivity.this, "onSignInSuccess", Toast.LENGTH_LONG).show();
+
     }
 
     @Override
     public void onSignUpSuccess() {
-        Toast.makeText(ExampleActivity.this, "onSignUpSuccess", Toast.LENGTH_LONG).show();
+
     }
 }
