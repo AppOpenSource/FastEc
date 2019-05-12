@@ -47,7 +47,6 @@ public class SignInDelegate extends LatteDelegate implements View.OnClickListene
                         public void onSuccess(String response) {
                             //LatteLogger.json("USER_PROFILE", response);
                             SignHandler.onSignIn(response, mISignListener);
-                            Toast.makeText(Latte.getAppContext(), "登录成功", Toast.LENGTH_LONG).show();
                         }
                     })
                     .failure(new IFailure() {

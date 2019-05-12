@@ -2,7 +2,6 @@ package com.diabin.latte.ec.sign;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
@@ -17,11 +16,11 @@ import com.diabin.latte.net.RestClient;
 import com.diabin.latte.net.callback.IError;
 import com.diabin.latte.net.callback.IFailure;
 import com.diabin.latte.net.callback.ISuccess;
+import com.diabin.latte.util.log.LatteLogger;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class SignUpDelegate extends LatteDelegate {
 
-    private static final String TAG = "SignUpDelegate";
     private TextInputEditText mName = null;
     private TextInputEditText mEmail = null;
     private TextInputEditText mPhone = null;
@@ -49,7 +48,7 @@ public class SignUpDelegate extends LatteDelegate {
                     .success(new ISuccess() {
                         @Override
                         public void onSuccess(String response) {
-                            //LatteLogger.json("USER_PROFILE", response);
+                            LatteLogger.json("USER_PROFILE", response);
                             SignHandler.onSignUp(response, mISignListener);
                         }
                     })
@@ -62,7 +61,7 @@ public class SignUpDelegate extends LatteDelegate {
                     .error(new IError() {
                         @Override
                         public void onError(int code, String msg) {
-                            Log.d(TAG, "onError, code = "+code+", msg = "+msg);
+                            LatteLogger.d("onError, code = "+code+", msg = "+msg);
                             Toast.makeText(Latte.getAppContext(), "注册失败，错误码="+code, Toast.LENGTH_LONG).show();
                         }
                     })
