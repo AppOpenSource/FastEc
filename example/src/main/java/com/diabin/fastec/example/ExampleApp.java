@@ -16,7 +16,8 @@ public class ExampleApp extends Application {
                 .withIcon(new FontAwesomeModule())
                 .withIcon(new FontEcModule())
                 .withLoaderDelayed(1000)
-                .withApiHost("http://127.0.0.1")
+                //.withApiHost("http://127.0.0.1")
+                .withApiHost("http://192.168.1.100")
                 .withInterceptor(new DebugInterceptor("/index", R.raw.mock_respones))
                 .configure();
     }

@@ -1,6 +1,7 @@
 package com.diabin.fastec.example;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,6 +13,7 @@ import com.diabin.latte.app.Latte;
 import com.diabin.latte.delegates.LatteDelegate;
 import com.diabin.latte.net.RestClient;
 import com.diabin.latte.net.RestCreator;
+import com.diabin.latte.net.callback.IError;
 import com.diabin.latte.net.callback.IFailure;
 import com.diabin.latte.net.callback.ISuccess;
 import com.diabin.latte.net.rx.RxRestClient;
@@ -25,6 +27,9 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class ExampleDelegate extends LatteDelegate {
+
+    public static final String TAG = ExampleDelegate.class.getSimpleName();
+
     @Override
     public Object setLayout() {
         return R.layout.delegate_example;
@@ -37,10 +42,13 @@ public class ExampleDelegate extends LatteDelegate {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mContent = view.findViewById(R.id.content);
-        //testRestClient();
-        //testLocalResponse();
-        //onCallRxGet();
-        onCallRxRestClient();
+
+/*        testRestClient();
+        testRestClientLocalResponse();
+
+        testRxGet();
+        testRxRestClient();*/
+
     }
 
     /**
@@ -70,7 +78,7 @@ public class ExampleDelegate extends LatteDelegate {
     /**
      * 测试，本地拦截器模拟后台返回json
      */
-    private void testLocalResponse() {
+    private void testRestClientLocalResponse() {
         RestClient.builder()
                 .url("http://127.0.0.1/index")
                 .loader(getContext())
@@ -94,8 +102,7 @@ public class ExampleDelegate extends LatteDelegate {
     /**
      * 测试Rxjava基本的功能
      */
-    //TODO:测试方法，没啥卵用
-    void onCallRxGet() {
+    void testRxGet() {
         final String url = "index.php";
         final WeakHashMap<String, Object> params = new WeakHashMap<>();
         final Observable<String> observable = RestCreator.getRxRestService().get(url, params);
@@ -109,7 +116,7 @@ public class ExampleDelegate extends LatteDelegate {
 
                     @Override
                     public void onNext(@io.reactivex.annotations.NonNull String s) {
-                        Toast.makeText(getContext(), "onCallRxGet response -> "+s, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "testRxGet response -> "+s, Toast.LENGTH_LONG).show();
                     }
 
                     @Override
@@ -124,8 +131,10 @@ public class ExampleDelegate extends LatteDelegate {
                 });
     }
 
-    //TODO:测试方法，没啥卵用X2
-    private void onCallRxRestClient() {
+    /**
+     * 测试RxRestClient
+     */
+    private void testRxRestClient() {
         final String url = "index.php";
         RxRestClient.builder()
                 .url(url)
@@ -141,7 +150,7 @@ public class ExampleDelegate extends LatteDelegate {
 
                     @Override
                     public void onNext(@io.reactivex.annotations.NonNull String s) {
-                        Toast.makeText(getContext(), "onCallRxRestClient response -> "+s, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "testRxRestClient response -> "+s, Toast.LENGTH_LONG).show();
                     }
 
                     @Override
@@ -155,4 +164,6 @@ public class ExampleDelegate extends LatteDelegate {
                     }
                 });
     }
+
+
 }
